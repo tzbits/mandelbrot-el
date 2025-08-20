@@ -78,7 +78,7 @@ int emacs_module_init(struct emacs_runtime *runtime)
         "Calculate Mandelbrot point using a C extension.",
         NULL);
 
-    // Set the Lisp function 'mandelbrot-point-native'.
+    // Set the Lisp function 'mandelbrot-test-point-native'.
     env->funcall(env, env->intern(env, "fset"), 2,
         (emacs_value[]) {
             env->intern(env, "mandelbrot-test-point-native"),
