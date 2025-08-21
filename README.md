@@ -21,3 +21,11 @@ sudo apt install gcc make emacs emacs-el
 ```
 
 Inspired by the [benchmarks game](https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/mandelbrot.html#mandelbrot) and [Down the Mandelbrot Rabbit Hole](https://youtu.be/oJgjU-Ad_Fc).
+
+# Try it out
+
+```
+make uninstall clean install \
+  && mandelbrot 200 test.pbm \
+  && cmp test.pbm mandelbrot-200-expected.pbm
+```

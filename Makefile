@@ -18,9 +18,12 @@ mandelbrot.elc: mandelbrot.el
 
 clean:
 	rm -f mandelbrot-native.so mandelbrot.elc
-	rm -f $(PREFIX)/bin/mandelbrot
 
 install: mandelbrot-native.so mandelbrot.elc
 	mkdir -p $(HOME)/.emacs.d/site-lisp/mandelbrot
 	cp mandelbrot.el mandelbrot.elc mandelbrot-native.so $(HOME)/.emacs.d/site-lisp/mandelbrot/.
 	cp mandelbrot.sh $(PREFIX)/bin/mandelbrot
+
+uninstall:
+	rm -f $(PREFIX)/bin/mandelbrot
+	rm -Rf $(HOME)/.emacs.d/site-lisp/mandelbrot

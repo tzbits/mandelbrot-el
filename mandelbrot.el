@@ -1,8 +1,5 @@
 ;; -*- lexical-binding: t; nameless-current-name: "mandelbrot" -*-
 
-;; Prevents emacs from showing this warning in a terminal:
-;;   File mode specification error: (error Display does not support images)
-(defun image-mode (&rest args) (and args nil))
 (require 'mandelbrot-native)
 
 (defun mandelbrot--generate-output (n output-file)
@@ -20,8 +17,9 @@
               (row-index 0))
           (dotimes (x n)
             (setq byte
-                  (logior (ash byte 1)
-                          (mandelbrot-test-point-native x y n-as-float iter-max limit)))
+                  (logior
+                   (ash byte 1)
+                   (mandelbrot-test-point-native x y n-as-float iter-max limit)))
             (setq bit-num (1+ bit-num))
             (when (= bit-num 8)
               (aset row-data row-index byte)
@@ -39,11 +37,8 @@ N is the side length of the square bitmap."
   (condition-case err
       (mandelbrot--generate-output n output-file)
     ((file-error)
-     (message "Error: Could not write to file '%s'. Check permissions."
-              output-file)
-     (let ((exit-code 1))
-       (throw 'exit-signal exit-code)))
+     (setq backtrace-on-error-noninteractive nil)
+     (error "Error: Could not write to file '%s'. Check permissions."
+            output-file))
     (t
-     (signal (car err) (cdr err)))))
-
-;; (mandelbrot-main 200)
+     (error "Unhandled error: %S" err))))

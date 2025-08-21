@@ -8,5 +8,4 @@ fi
 emacs -Q --batch --no-site-file \
   -L "${HOME}/.emacs.d/site-lisp/mandelbrot" \
   --load "mandelbrot.el" \
-  --eval "(mandelbrot-main (string-to-number (nth 1 argv)) (nth 2 argv))" \
-  -- "$@"
+  --eval "(mandelbrot-main ${1} \"${2}\")"
